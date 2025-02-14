@@ -1,0 +1,59 @@
+"use client"
+import { Button } from '@/components/ui/button'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
+import React, { useState } from 'react'
+import LogoTitle from './_components/LogoTitle'
+import LogoDescription from './_components/LogoDescription'
+import LogoPallet from './_components/LogoPallet'
+import LogoDesign from './_components/LogoDesign'
+import LogoIdea from './_components/LogoIdea'
+import PriceModel from './_components/PriceModel'
+
+const CreateLogo = () => {
+    const [step,setStep]=useState(1);
+    const [formData,setFormData]=useState();
+    const onHandleInputChange=(field,value)=>{
+        setFormData(prev=>({
+            ...prev,
+            [field]:value
+        }))
+
+        console.log(formData)
+    }
+    return (
+        <div className='flex flex-col justify-around text-center mb-32 mt-24 p-10 border rounded-xl 2xl:mx-72'>
+            {step==1?
+            <LogoTitle onHandleInputChange={(v)=>onHandleInputChange('title',v)}
+            formData={formData}
+            />:
+            step==2?
+            <LogoDescription onHandleInputChange={(v)=>onHandleInputChange('desc',v)}
+            formData={formData}/>:
+            step==3?
+            <LogoPallet onHandleInputChange={(v)=>onHandleInputChange('palette',v)}
+            formData={formData}/>:          
+            step==4?
+            <LogoDesign onHandleInputChange={(v)=>onHandleInputChange('design',v)}
+            formData={formData}/>:
+            step==5?
+            <LogoIdea onHandleInputChange={(v)=>onHandleInputChange('idea',v)}
+            formData={formData}/>:
+            step==6?
+            <PriceModel onHandleInputChange={(v)=>onHandleInputChange('pricing',v)}
+            formData={formData}/>:
+            null
+        }
+                                 
+                    <div className='flex justify-around'>
+                    {
+                        step!=1&&<Button onClick={()=>setStep(step-1)} className='mt-3 h-[30px] md:h-[36px]'><ArrowLeft />Previous </Button>
+                    }
+                                
+                    <Button onClick={()=>setStep(step+1)} className='mt-3 h-[30px] md:h-[36px]'>Continue<ArrowRight /> </Button>
+                    
+                    </div>
+            </div>
+    )
+}
+
+export default CreateLogo
